@@ -16,7 +16,7 @@ SCOPES = [
     "https://www.googleapis.com/auth/webmasters.readonly",
     "https://www.googleapis.com/auth/webmasters",
 ]
-REDIRECT_URI = os.environ.get("REDIRECT_URI", "http://localhost:8501/")
+REDIRECT_URI = os.environ.get("REDIRECT_URI", "https://smoothindex.streamlit.app/")
 
 
 def get_flow_worker():
