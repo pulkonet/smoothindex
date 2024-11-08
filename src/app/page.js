@@ -88,7 +88,7 @@ export default function Home() {
           <div className={styles.featureCard}>
             <div className={styles.featureIcon}>📊</div>
             <h3>Rich Analytics</h3>
-            <p>Comprehensive insights into your site's search performance with detailed metrics and trends.</p>
+            <p>Comprehensive insights into your site&apos;s search performance with detailed metrics and trends.</p>
           </div>
           <div className={styles.featureCard}>
             <div className={styles.featureIcon}>🔍</div>
@@ -115,12 +115,12 @@ export default function Home() {
           <div className={styles.step}>
             <div className={styles.stepNumber}>2</div>
             <h3>Monitor</h3>
-            <p>Get instant access to your site's performance metrics and indexing status.</p>
+            <p>Get instant access to your site&apos;s performance metrics and indexing status.</p>
           </div>
           <div className={styles.step}>
             <div className={styles.stepNumber}>3</div>
             <h3>Optimize</h3>
-            <p>Use our tools to improve your site's visibility and search performance.</p>
+            <p>Use our tools to improve your site&apos;s visibility and search performance.</p>
           </div>
         </div>
       </section>

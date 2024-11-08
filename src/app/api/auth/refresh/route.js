@@ -2,7 +2,7 @@ import { google } from 'googleapis';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
@@ -10,7 +10,7 @@ const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_REDIRECT_URI
 );
 
-export async function GET() {
+export async function GET(request) {
     try {
         const refreshToken = cookies().get('google_refresh_token')?.value;
 

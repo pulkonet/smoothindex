@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import styles from './Testimonials.module.css';
 
@@ -63,14 +64,14 @@ export default function Testimonials() {
                                         <span className={styles.company}>{testimonial.company}</span>
                                     </div>
                                     <div className={styles.companyLogo}>
-                                        <img
+                                        <Image
                                             src={testimonial.image}
                                             alt={testimonial.company}
+                                            height={24}
+                                            width={96}
                                             className={styles.logo}
                                             style={{
-                                                filter: 'var(--company-logo-filter)',
-                                                height: '24px',
-                                                width: 'auto'
+                                                filter: 'var(--company-logo-filter)'
                                             }}
                                         />
                                     </div>
