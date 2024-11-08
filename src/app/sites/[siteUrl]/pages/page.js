@@ -39,6 +39,8 @@ export default function CrawledPages() {
     if (loading) return <div className={styles.loading}>Loading pages...</div>;
     if (error) return <div className={styles.error}>{error}</div>;
 
+    console.info({ pages });
+
     return (
         <div className={styles.container}>
             <div className={styles.header}>
@@ -66,7 +68,7 @@ export default function CrawledPages() {
                                         rel="noopener noreferrer"
                                         className={styles.pageUrl}
                                     >
-                                        {page.url.replace(decodedSiteUrl, '')}
+                                        {page.url.replace(decodedSiteUrl, '').replace("https://", "").replace("http://", "")}
                                     </a>
                                 </td>
                                 <td>{new Date(page.lastCrawled).toLocaleDateString()}</td>
