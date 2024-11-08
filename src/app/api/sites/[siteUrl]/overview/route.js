@@ -1,4 +1,3 @@
-import { getOriginalSiteUrl } from '@/utils/formatDomain';
 import { google } from 'googleapis';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
@@ -28,9 +27,6 @@ export async function GET(request, { params }) {
         const webmasters = google.webmasters('v3');
         const siteUrl = decodeURIComponent(params.siteUrl);
 
-        console.log('siteUrl', siteUrl);
-        const siteUrlOg = getOriginalSiteUrl(siteUrl);
-
         // Get the date range for analytics
         const endDate = new Date();
         const startDate = new Date();
@@ -40,7 +36,7 @@ export async function GET(request, { params }) {
         const [pageData, dateData] = await Promise.all([
             webmasters.searchanalytics.query({
                 auth: oauth2Client,
-                siteUrl: siteUrlOg,
+                siteUrl: siteUrl,
                 requestBody: {
                     startDate: startDate.toISOString().split('T')[0],
                     endDate: endDate.toISOString().split('T')[0],
@@ -50,7 +46,7 @@ export async function GET(request, { params }) {
             }),
             webmasters.searchanalytics.query({
                 auth: oauth2Client,
-                siteUrl: siteUrlOg,
+                siteUrl: siteUrl,
                 requestBody: {
                     startDate: startDate.toISOString().split('T')[0],
                     endDate: endDate.toISOString().split('T')[0],

@@ -3,11 +3,40 @@
 import Pricing from '@/components/Pricing/Pricing';
 import Testimonials from '@/components/Testimonials/Testimonials';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useEffect, useRef } from 'react';
 import styles from './page.module.css';
 
 export default function Home() {
-  const router = useRouter();
+  const heroRef = useRef(null);
+  const glowRef = useRef(null);
+
+  useEffect(() => {
+    const hero = heroRef.current;
+    const glow = glowRef.current;
+
+    const handleMouseMove = (e) => {
+      if (!hero || !glow) return;
+
+      const rect = hero.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      glow.style.background = `radial-gradient(600px circle at ${x}px ${y}px, rgba(14, 165, 233, 0.15), transparent 40%)`;
+    };
+
+    const handleMouseLeave = () => {
+      if (!glow) return;
+      glow.style.background = 'transparent';
+    };
+
+    hero.addEventListener('mousemove', handleMouseMove);
+    hero.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      hero.removeEventListener('mousemove', handleMouseMove);
+      hero.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
 
   const handleGoogleLogin = async () => {
     try {
@@ -25,22 +54,25 @@ export default function Home() {
   return (
     <div className={styles.container}>
       {/* Hero Section */}
-      <section className={styles.hero}>
-        <div className={styles.heroContent}>
-          <h1>Streamline Your SEO Workflow</h1>
-          <p>Manage your Google Search Console data efficiently with instant indexing requests and comprehensive analytics.</p>
-          <button onClick={handleGoogleLogin} className={styles.ctaButton}>
-            Get Started with Google
-          </button>
-        </div>
-        <div className={styles.heroImage}>
-          <Image
-            src="/dashboard-preview.png"
-            alt="Dashboard Preview"
-            width={600}
-            height={400}
-            className={styles.previewImage}
-          />
+      <section className={styles.hero} ref={heroRef}>
+        <div className={styles.glowContainer} ref={glowRef} />
+        <div className={styles.heroWrapper}>
+          <div className={styles.heroContent}>
+            <h1>Streamline Your SEO Workflow</h1>
+            <p>Manage your Google Search Console data efficiently with instant indexing requests and comprehensive analytics.</p>
+            <button onClick={handleGoogleLogin} className={styles.ctaButton}>
+              Get Started with Google
+            </button>
+          </div>
+          <div className={styles.heroImage}>
+            <Image
+              src="/dashboard-preview.png"
+              alt="Dashboard Preview"
+              width={600}
+              height={400}
+              className={styles.previewImage}
+            />
+          </div>
         </div>
       </section>
 

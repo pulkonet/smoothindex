@@ -7,12 +7,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 100;
     width: calc(100% - 2rem);
     max-width: 1100px;
+    pointer-events: none;
 }
 
 .navbar {
+    pointer-events: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;

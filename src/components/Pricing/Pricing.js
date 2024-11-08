@@ -1,10 +1,36 @@
 'use client';
 
+import { useRef } from 'react';
 import styles from './Pricing.module.css';
 
 export default function Pricing() {
+    const pricingRef = useRef(null);
+    const glowRef = useRef(null);
+
+    const handleMouseMove = (e) => {
+        if (!pricingRef.current || !glowRef.current) return;
+
+        const rect = pricingRef.current.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        glowRef.current.style.background = `radial-gradient(600px circle at ${x}px ${y}px, rgba(14, 165, 233, 0.15), transparent 40%)`;
+    };
+
+    const handleMouseLeave = () => {
+        if (!glowRef.current) return;
+        glowRef.current.style.background = 'transparent';
+    };
+
     return (
-        <section className={styles.pricing} id="pricing">
+        <section
+            className={styles.pricing}
+            id="pricing"
+            ref={pricingRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+        >
+            <div className={styles.glowContainer} ref={glowRef} />
             <div className={styles.container}>
                 <h2>Simple, Transparent Pricing</h2>
                 <p className={styles.subtitle}>Choose the plan that&apos;s right for you</p>

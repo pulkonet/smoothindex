@@ -21,10 +21,12 @@
     min-width: 200px;
 }
 
+/* Stats Grid */
 .analyticsGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .statsCard {
@@ -46,38 +48,16 @@
     color: var(--accent-primary);
 }
 
-.keywordsTable {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 600px;
-}
-
-.keywordsTable th,
-.keywordsTable td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.keywordsTable th {
-    background-color: var(--bg-secondary);
-    font-weight: 500;
-    color: var(--text-primary);
-}
-
-.keywordsTable tbody tr:hover {
-    background-color: var(--hover-bg);
-}
-
-.chartCard {
-    grid-column: 1 / -1;
+/* Chart Section */
+.chartSection {
     background: var(--card-bg);
     border-radius: 0.75rem;
     padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--card-shadow);
+    margin-bottom: 2rem;
 }
 
-.chartCard h3 {
+.chartSection h2 {
     color: var(--text-primary);
     margin-bottom: 1.5rem;
 }
@@ -86,23 +66,12 @@
     height: 300px;
 }
 
-.loading,
-.error {
-    text-align: center;
-    padding: 2rem;
-    font-size: 1.1rem;
-}
-
-.error {
-    color: #dc2626;
-}
-
+/* Keywords Table */
 .keywordsSection {
-    margin-top: 2rem;
     background: var(--card-bg);
     border-radius: 0.75rem;
     padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--card-shadow);
 }
 
 .keywordsSection h2 {
@@ -128,9 +97,9 @@
 }
 
 .keywordsTable th {
-    background-color: var(--hover-bg);
+    background-color: var(--bg-secondary);
     font-weight: 500;
-    color: var(--text-secondary);
+    color: var(--text-primary);
 }
 
 .keywordsTable tbody tr:hover {
@@ -143,22 +112,25 @@
     height: 24px;
     line-height: 24px;
     text-align: center;
-    background-color: var(--border-color);
+    background-color: var(--bg-secondary);
     border-radius: 12px;
     margin-right: 0.75rem;
     font-size: 0.875rem;
     color: var(--text-secondary);
 }
 
-.chartSection {
-    margin-top: 2rem;
-    background: var(--card-bg);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+/* Loading and Error States */
+.loading,
+.error {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.1rem;
 }
 
-.chartSection h2 {
-    color: var(--text-primary);
-    margin-bottom: 1.5rem;
+.loading {
+    color: var(--text-secondary);
+}
+
+.error {
+    color: #dc2626;
 }
