@@ -1,7 +1,9 @@
 .footer {
-    background: var(--bg-secondary);
-    padding: 4rem 2rem 2rem;
-    color: var(--text-secondary);
+    flex-shrink: 0;
+    width: 100%;
+    padding: 2rem;
+    background-color: var(--bg-secondary);
+    margin-top: auto;
 }
 
 .content {

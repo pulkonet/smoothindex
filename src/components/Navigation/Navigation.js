@@ -48,6 +48,7 @@ export default function Navigation() {
             await fetch('/api/auth/logout', { method: 'POST' });
             document.cookie = 'user_profile=; max-age=0; path=/;';
             router.push('/');
+            window.location.reload();
         } catch (error) {
             console.error('Logout failed:', error);
         }
@@ -171,13 +172,15 @@ export default function Navigation() {
                             >
                                 How It Works
                             </a>
-                            <a
-                                href="#pricing"
-                                className={styles.navLink}
-                                onClick={(e) => handleNavClick(e, 'pricing')}
-                            >
-                                Pricing
-                            </a>
+                            {!isAuthenticated && (
+                                <a
+                                    href="#pricing"
+                                    className={styles.navLink}
+                                    onClick={(e) => handleNavClick(e, 'pricing')}
+                                >
+                                    Pricing
+                                </a>
+                            )}
                             <div className={styles.mobileAuthButtons}>
                                 <button
                                     onClick={handleGoogleLogin}

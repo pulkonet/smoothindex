@@ -3,6 +3,7 @@ import Navigation from '@/components/Navigation/Navigation';
 import { ThemeProvider } from '@/components/ThemeProvider/ThemeProvider';
 import { Bricolage_Grotesque } from 'next/font/google';
 import './globals.css';
+import styles from './layout.module.css';
 
 const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
@@ -22,11 +23,13 @@ export default function RootLayout({ children }) {
     <html lang="en" className={bricolage.variable}>
       <body className={bricolage.className}>
         <ThemeProvider>
-          <Navigation />
-          <main style={{ paddingTop: '70px' }}>
-            {children}
-          </main>
-          <Footer />
+          <div className={styles.layout}>
+            <Navigation />
+            <main className={styles.main}>
+              {children}
+            </main>
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>

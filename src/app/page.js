@@ -2,13 +2,21 @@
 
 import Pricing from '@/components/Pricing/Pricing';
 import Testimonials from '@/components/Testimonials/Testimonials';
+import { useAuth } from '@/hooks/useAuth';
+import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
+
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import styles from './page.module.css';
 
 export default function Home() {
   const heroRef = useRef(null);
   const glowRef = useRef(null);
+
+  const router = useRouter();
+  const { isAuthenticated } = useAuth();
+
 
   useEffect(() => {
     const hero = heroRef.current;
@@ -60,9 +68,26 @@ export default function Home() {
           <div className={styles.heroContent}>
             <h1>Streamline Your SEO Workflow</h1>
             <p>Manage your Google Search Console data efficiently with instant indexing requests and comprehensive analytics.</p>
-            <button onClick={handleGoogleLogin} className={styles.ctaButton}>
-              Get Started with Google
-            </button>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              {isAuthenticated ? (
+                <button
+                  onClick={() => {
+                    router.push('/dashboard');
+                  }}
+                  className={styles.ctaButton}
+                >
+                  Go to dashboard
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              ) : (
+                <button
+                  onClick={handleGoogleLogin}
+                  className={styles.ctaButton}
+                >
+                  Get Started with Google
+                </button>
+              )}
+            </div>
           </div>
           <div className={styles.heroImage}>
             <Image
@@ -146,15 +171,32 @@ export default function Home() {
 
       <Testimonials />
 
-      <Pricing />
+      {!isAuthenticated && <Pricing />}
 
       {/* CTA Section */}
       <section className={styles.cta}>
         <h2>Ready to Improve Your Search Presence?</h2>
         <p>Join thousands of websites using SmoothIndex to optimize their search performance.</p>
-        <button onClick={handleGoogleLogin} className={styles.ctaButton}>
-          Start Free with Google
-        </button>
+        <div className="mt-10 flex items-center justify-center gap-x-6">
+          {isAuthenticated ? (
+            <button
+              onClick={() => {
+                router.push('/dashboard');
+              }}
+              className={styles.ctaButton}
+            >
+              Go to dashboard
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          ) : (
+            <button
+              onClick={handleGoogleLogin}
+              className={styles.ctaButton}
+            >
+              Get Started with Google
+            </button>
+          )}
+        </div>
       </section>
     </div>
   );
