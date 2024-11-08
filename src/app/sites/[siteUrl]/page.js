@@ -1,6 +1,7 @@
 'use client';
 
 import { formatDomain, getFullUrl } from '@/utils/formatDomain';
+import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import {
@@ -66,6 +67,12 @@ export default function SiteOverview() {
                 <h1 className={styles.title}>
                     {formatDomain(decodedSiteUrl)}
                 </h1>
+                <Link
+                    href={`/sites/${params.siteUrl}/pages`}
+                    className={styles.pagesButton}
+                >
+                    View All Pages
+                </Link>
                 <a
                     href={getFullUrl(decodedSiteUrl)}
                     target="_blank"
