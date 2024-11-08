@@ -1,0 +1,105 @@
+.container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.addButton {
+    padding: 0.75rem 1.5rem;
+    background-color: #2563eb;
+    color: white;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.addButton:hover {
+    background-color: #1d4ed8;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.cardHeader {
+    margin-bottom: 1.5rem;
+}
+
+.cardHeader h2 {
+    font-size: 1.25rem;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.permission {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.cardActions {
+    display: flex;
+    gap: 1rem;
+}
+
+.viewButton,
+.visitButton {
+    flex: 1;
+    padding: 0.75rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.viewButton {
+    background-color: #2563eb;
+    color: white;
+}
+
+.viewButton:hover {
+    background-color: #1d4ed8;
+}
+
+.visitButton {
+    background-color: #f3f4f6;
+    color: #4b5563;
+}
+
+.visitButton:hover {
+    background-color: #e5e7eb;
+    color: #1f2937;
+}
+
+.loading,
+.error {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.1rem;
+}
+
+.error {
+    color: #dc2626;
+}

@@ -1,0 +1,125 @@
+.container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tableContainer {
+    margin-top: 2rem;
+    overflow-x: auto;
+    background: var(--card-bg);
+    border-radius: 0.75rem;
+    box-shadow: var(--card-shadow);
+}
+
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 600px;
+}
+
+.th {
+    background: var(--bg-secondary);
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+
+.th:first-child {
+    border-top-left-radius: 0.75rem;
+}
+
+.th:last-child {
+    border-top-right-radius: 0.75rem;
+}
+
+.thContent {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sortIcon {
+    opacity: 0.5;
+    font-size: 0.75rem;
+}
+
+.td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.domainCell {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.domainLink {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.domainLink:hover {
+    color: var(--accent-secondary);
+    text-decoration: underline;
+}
+
+.externalLink {
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.externalLink:hover {
+    color: var(--text-primary);
+}
+
+.viewButton {
+    padding: 0.5rem 1rem;
+    background-color: var(--accent-primary);
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: background-color 0.2s ease;
+}
+
+.viewButton:hover {
+    background-color: var(--accent-secondary);
+}
+
+.permissionBadge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    background: var(--bg-secondary);
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.loading {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+}
+
+.error {
+    color: #dc2626;
+    text-align: center;
+    padding: 2rem;
+}

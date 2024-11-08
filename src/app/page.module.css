@@ -1,0 +1,327 @@
+.main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.error {
+    color: red;
+    margin: 1rem 0;
+}
+
+.sitesContainer {
+    margin-top: 2rem;
+}
+
+.sitesContainer ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sitesContainer li {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.permissionLevel {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.container {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    min-height: 60vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 4rem;
+}
+
+.heroContent {
+    flex: 1;
+    max-width: 540px;
+}
+
+.heroContent h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.heroContent p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+.heroImage {
+    flex: 1;
+    max-width: 540px;
+}
+
+.previewImage {
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    width: 100%;
+    height: auto;
+}
+
+/* Features Section */
+.features {
+    padding: 6rem 2rem;
+    background: var(--bg-primary);
+}
+
+.features h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin-bottom: 3rem;
+}
+
+.featureGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.featureCard {
+    padding: 2rem;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease;
+}
+
+.featureCard:hover {
+    transform: translateY(-5px);
+}
+
+.featureIcon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.featureCard h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.featureCard p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* How It Works Section */
+.howItWorks {
+    padding: 6rem 2rem;
+    background: var(--bg-secondary);
+}
+
+.howItWorks h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin-bottom: 3rem;
+}
+
+.steps {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 2rem;
+}
+
+.step {
+    text-align: center;
+    flex: 1;
+}
+
+.stepNumber {
+    width: 40px;
+    height: 40px;
+    background: var(--accent-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-weight: 600;
+}
+
+.step h3 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.step p {
+    color: var(--text-secondary);
+}
+
+/* Trust Section */
+.trust {
+    padding: 6rem 2rem;
+    background: var(--bg-primary);
+}
+
+.trust h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin-bottom: 3rem;
+}
+
+.trustGrid {
+    display: flex;
+    justify-content: space-around;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat h3 {
+    font-size: 2.5rem;
+    color: var(--accent-primary);
+    margin-bottom: 0.5rem;
+}
+
+.stat p {
+    color: var(--text-secondary);
+}
+
+/* CTA Section */
+.cta {
+    padding: 6rem 2rem;
+    text-align: center;
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+    color: white;
+}
+
+.cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.cta p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.ctaButton {
+    position: relative;
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #0EA5E9 0%, #2DD4BF 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.2),
+        0 2px 4px -2px rgba(14, 165, 233, 0.1);
+}
+
+.ctaButton::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, #0EA5E9 0%, #2DD4BF 100%);
+    border-radius: 14px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.ctaButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px -1px rgba(14, 165, 233, 0.25),
+        0 4px 6px -2px rgba(14, 165, 233, 0.15);
+}
+
+.ctaButton:hover::before {
+    opacity: 1;
+    animation: borderGlow 2s linear infinite;
+}
+
+@keyframes borderGlow {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 4rem 1rem;
+    }
+
+    .heroContent {
+        padding-right: 0;
+        margin-bottom: 2rem;
+    }
+
+    .steps {
+        flex-direction: column;
+    }
+
+    .trustGrid {
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
+
+/* Dark mode specific overrides */
+[data-theme="dark"] .featureCard {
+    background: var(--card-bg);
+}
+
+[data-theme="dark"] .ctaButton {
+    background: white;
+    color: var(--accent-primary);
+}
+
+[data-theme="dark"] .previewImage {
+    opacity: 0.9;
+}
+
+#features,
+#how-it-works,
+#pricing {
+    scroll-margin-top: 100px;
+    /* Adjust based on your navbar height */
+}

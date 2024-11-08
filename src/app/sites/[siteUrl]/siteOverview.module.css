@@ -1,0 +1,161 @@
+.container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    word-break: break-all;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.statCard {
+    background: var(--card-bg);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.statCard:hover {
+    transform: translateY(-2px);
+}
+
+.statCard h3 {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.statValue {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2563eb;
+}
+
+.chartSection {
+    background: var(--card-bg);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    font-size: 1.1rem;
+    color: #6b7280;
+}
+
+.error {
+    color: #dc2626;
+    text-align: center;
+    padding: 2rem;
+    background: #fee2e2;
+    border-radius: 0.5rem;
+    margin: 2rem;
+}
+
+.chartsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.chartCard {
+    background: var(--card-bg);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chartCard h2 {
+    font-size: 1.25rem;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+}
+
+.chartContainer {
+    width: 100%;
+    height: 300px;
+}
+
+@media (max-width: 768px) {
+    .chartsGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.visitSite {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #f3f4f6;
+    border-radius: 0.5rem;
+    color: #4b5563;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.visitSite:hover {
+    background: #e5e7eb;
+    color: #1f2937;
+}
+
+.chartCard {
+    background: var(--card-bg);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chartCard h2 {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+}
+
+.visitSite {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--card-bg-secondary);
+    border-radius: 0.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.visitSite:hover {
+    background: var(--card-bg-hover);
+    color: var(--text-primary);
+}
+
+.externalIcon {
+    width: 1rem;
+    height: 1rem;
+}

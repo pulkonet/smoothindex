@@ -1,0 +1,153 @@
+.pricing {
+    padding: 6rem 2rem;
+    background: var(--bg-primary);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.container h2 {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    margin-bottom: 4rem;
+}
+
+.plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.plan {
+    background: var(--card-bg);
+    border-radius: 1rem;
+    padding: 2rem;
+    position: relative;
+    transition: transform 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.plan:hover {
+    transform: translateY(-5px);
+}
+
+.popular {
+    border: 2px solid var(--accent-primary);
+}
+
+.popularBadge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-primary);
+    color: white;
+    padding: 0.25rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.planHeader {
+    margin-bottom: 2rem;
+}
+
+.planHeader h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.price {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.currency {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+.amount {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.period {
+    color: var(--text-secondary);
+}
+
+.contact {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+.features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    text-align: left;
+}
+
+.features li {
+    padding: 0.75rem 0;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.features li::before {
+    content: "✓";
+    color: var(--accent-primary);
+    font-weight: bold;
+}
+
+.planButton {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.planButton:hover {
+    background: var(--hover-bg);
+}
+
+.primaryButton {
+    background: var(--accent-primary);
+    color: white;
+    border: none;
+}
+
+.primaryButton:hover {
+    background: var(--accent-secondary);
+}
+
+@media (max-width: 768px) {
+    .plans {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+}

@@ -1,0 +1,142 @@
+.testimonials {
+    padding: 6rem 2rem;
+    background: var(--bg-secondary);
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.container h2 {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    margin-bottom: 4rem;
+}
+
+.carousel {
+    position: relative;
+    height: 300px;
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.testimonial {
+    position: absolute;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+
+.content {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: var(--card-shadow);
+}
+
+.quote {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.authorInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+}
+
+.authorInfo strong {
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.authorInfo span {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.company {
+    color: var(--accent-primary) !important;
+}
+
+.companyLogo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+}
+
+.logo {
+    height: 24px;
+    width: auto;
+    color: var(--text-primary);
+    filter: var(--company-logo-filter);
+}
+
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 0.5rem;
+    background: var(--card-bg);
+    border-radius: 2rem;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-color);
+}
+
+.dot {
+    width: 2.5rem;
+    height: 0.25rem;
+    border-radius: 1rem;
+    background: var(--text-secondary);
+    opacity: 0.2;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.activeDot {
+    opacity: 1;
+    background: var(--accent-primary);
+    width: 3.5rem;
+}
+
+.dot:hover:not(.activeDot) {
+    opacity: 0.4;
+    background: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    .carousel {
+        height: 400px;
+    }
+
+    .quote {
+        font-size: 1.125rem;
+    }
+}

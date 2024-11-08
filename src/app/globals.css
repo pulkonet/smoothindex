@@ -1,27 +1,196 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+:root[data-theme="light"] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8faff;
+    --text-primary: #1f2937;
+    --text-secondary: #4b5563;
+    --accent-primary: #2563eb;
+    --accent-secondary: #1d4ed8;
+    --hover-bg: #f3f4f6;
+    --border-color: #e5e7eb;
+    --card-bg: #ffffff;
+    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --chart-grid: #e5e7eb;
+    --chart-text: #6b7280;
+    --chart-tooltip-bg: rgba(255, 255, 255, 0.95);
+    --chart-tooltip-border: #e5e7eb;
+    --pie-colors: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+    --chart-color-1: #60a5fa;
+    --chart-color-2: #34d399;
+    --chart-color-3: #fbbf24;
+    --chart-color-4: #f87171;
+    --font-family: 'Bricolage Grotesque', system-ui, -apple-system, sans-serif;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    --company-logo-filter: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root[data-theme="dark"] {
+    --bg-primary: #111827;
+    --bg-secondary: #1f2937;
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --accent-primary: #3b82f6;
+    --accent-secondary: #60a5fa;
+    --hover-bg: #374151;
+    --border-color: #374151;
+    --card-bg: #1f2937;
+    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --chart-grid: #374151;
+    --chart-text: #9ca3af;
+    --chart-tooltip-bg: rgba(31, 41, 55, 0.95);
+    --chart-tooltip-border: #4b5563;
+    --pie-colors: ['#60a5fa', '#34d399', '#fbbf24', '#f87171'];
+    --chart-color-1: #3b82f6;
+    --chart-color-2: #10b981;
+    --chart-color-3: #f59e0b;
+    --chart-color-4: #ef4444;
+    --company-logo-filter: invert(1);
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Add transitions for smooth theme switching */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Add styles for Recharts components */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+    stroke: var(--border-color) !important;
+}
+
+.recharts-text {
+    fill: var(--text-secondary) !important;
+}
+
+.recharts-default-tooltip {
+    background-color: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+.recharts-tooltip-label,
+.recharts-tooltip-item {
+    color: var(--text-primary) !important;
+}
+
+.recharts-legend-item-text {
+    color: var(--text-secondary) !important;
+}
+
+.recharts-active-dot {
+    stroke: var(--card-bg) !important;
+}
+
+.recharts-tooltip-cursor {
+    fill: var(--hover-bg) !important;
+}
+
+.recharts-cartesian-axis-tick-value {
+    fill: var(--text-secondary) !important;
+}
+
+/* Base Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-family);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.02em;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: var(--font-family);
+}
+
+/* Specific Typography Classes */
+.text-display {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    font-weight: var(--font-weight-extrabold);
+    letter-spacing: -0.03em;
+}
+
+.text-h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.02em;
+}
+
+.text-h2 {
+    font-size: 2rem;
+    line-height: 1.3;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.02em;
+}
+
+.text-h3 {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: -0.01em;
+}
+
+.text-body {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: var(--font-weight-normal);
+}
+
+.text-small {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    font-weight: var(--font-weight-normal);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+/* Make scrollbar overlay content */
+html {
+    overflow-y: overlay;
+}
+
+body {
+    overflow-x: hidden;
+    margin-right: 0 !important;
+    /* Prevent layout shift when scrollbar appears */
 }
