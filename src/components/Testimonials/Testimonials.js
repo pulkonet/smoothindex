@@ -7,7 +7,7 @@ import styles from './Testimonials.module.css';
 const testimonials = [
     {
         text: "SmoothIndex has revolutionized how we handle indexing. It's become an essential part of our SEO toolkit.",
-        author: "Sarah Chen",
+        author: "Sarah Chang",
         role: "Senior SEO Engineer",
         company: "Vercel",
         image: "/testimonials/vercel.svg"
