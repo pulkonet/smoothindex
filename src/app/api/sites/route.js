@@ -1,3 +1,4 @@
+import { getUserByEmail, updateUserDomains } from '@/utils/db';
 import { google } from 'googleapis';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
@@ -14,6 +15,7 @@ export async function GET() {
     try {
         const accessToken = cookies().get('google_access_token')?.value;
         const refreshToken = cookies().get('google_refresh_token')?.value;
+        const userProfile = cookies().get('user_profile')?.value;
 
         if (!accessToken && !refreshToken) {
             return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
@@ -28,6 +30,15 @@ export async function GET() {
         const { data } = await webmasters.sites.list({
             auth: oauth2Client,
         });
+
+        // Get user and update their domains
+        if (userProfile) {
+            const profile = JSON.parse(userProfile);
+            const user = await getUserByEmail(profile.email);
+            if (user) {
+                await updateUserDomains(user.id, data.siteEntry || []);
+            }
+        }
 
         return NextResponse.json({ sites: data.siteEntry || [] });
     } catch (error) {

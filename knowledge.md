@@ -58,3 +58,8 @@
   - `src/components/Testimonials/Testimonials.js`
 - Hooks:
   - `src/hooks/useAuth.js`
+
+## Database
+- `src/db/schema.sql` - Supabase database schema definitions
+- `src/utils/db.js` - Database utility functions for user and site management
+- `src/utils/supabase.js` - Supabase client configuration

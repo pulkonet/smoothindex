@@ -1,3 +1,4 @@
+import { upsertUser } from '@/utils/db';
 import { google } from 'googleapis';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
@@ -36,6 +37,15 @@ export async function GET(request) {
         const oauth2 = google.oauth2('v2');
         const userInfo = await oauth2.userinfo.get({ auth: oauth2Client });
 
+        // Store user data in database with Google ID
+        await upsertUser({
+            googleId: userInfo.data.id,
+            email: userInfo.data.email,
+            name: userInfo.data.name,
+            picture: userInfo.data.picture
+        });
+
+        // Set cookies
         cookies().set('google_access_token', tokens.access_token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
