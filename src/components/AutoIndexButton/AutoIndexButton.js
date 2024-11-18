@@ -1,5 +1,6 @@
 'use client';
 
+import { ANALYTICS_EVENTS, event } from '@/utils/analytics';
 import { useState } from 'react';
 import styles from './AutoIndexButton.module.css';
 
@@ -12,6 +13,12 @@ export default function AutoIndexButton({ domain, isSubscribed }) {
         setError(null);
 
         try {
+            event({
+                action: ANALYTICS_EVENTS.SUBSCRIPTION.START,
+                category: 'Subscription',
+                label: domain
+            });
+
             const response = await fetch('/api/subscriptions/create', {
                 method: 'POST',
                 headers: {
@@ -24,6 +31,12 @@ export default function AutoIndexButton({ domain, isSubscribed }) {
             const data = await response.json();
 
             if (!response.ok) {
+                event({
+                    action: ANALYTICS_EVENTS.SUBSCRIPTION.ERROR,
+                    category: 'Subscription',
+                    label: domain,
+                    value: response.status
+                });
                 if (response.status === 401) {
                     // Redirect to login if unauthorized
                     window.location.href = '/api/auth/google';

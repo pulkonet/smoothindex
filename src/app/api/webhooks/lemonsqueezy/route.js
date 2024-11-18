@@ -1,3 +1,4 @@
+import { ANALYTICS_EVENTS } from '@/utils/analytics';
 import { createDomainSubscription, updateSubscriptionStatus } from '@/utils/db';
 import { verifyLemonSqueezyWebhook } from '@/utils/lemonsqueezy';
 
@@ -24,6 +25,11 @@ export async function POST(request) {
                     data.attributes.subscription_id,
                     data.attributes.customer_id
                 );
+                event({
+                    action: ANALYTICS_EVENTS.SUBSCRIPTION.SUCCESS,
+                    category: 'Subscription',
+                    label: data.attributes.custom_data.domain_name
+                });
                 break;
 
             case 'subscription_updated':
@@ -31,6 +37,13 @@ export async function POST(request) {
                     data.attributes.subscription_id,
                     data.attributes.status
                 );
+                if (data.attributes.status === 'cancelled') {
+                    event({
+                        action: ANALYTICS_EVENTS.SUBSCRIPTION.CANCEL,
+                        category: 'Subscription',
+                        label: data.attributes.custom_data.domain_name
+                    });
+                }
                 break;
         }
 

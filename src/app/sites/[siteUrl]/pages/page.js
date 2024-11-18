@@ -1,5 +1,6 @@
 'use client';
 
+import { ANALYTICS_EVENTS, event } from '@/utils/analytics';
 import { formatDomain } from '@/utils/formatDomain';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -19,6 +20,16 @@ export default function CrawledPages() {
     useEffect(() => {
         fetchPages(currentPage);
     }, [currentPage, decodedSiteUrl]);
+
+    useEffect(() => {
+        if (decodedSiteUrl) {
+            event({
+                action: ANALYTICS_EVENTS.SITES.VIEW_PAGES,
+                category: 'Sites',
+                label: decodedSiteUrl
+            });
+        }
+    }, [decodedSiteUrl]);
 
     const fetchPages = async (page) => {
         try {

@@ -55,4 +55,30 @@ export const event = ({ action, category, label, value }) => {
 // Helper to check if analytics is loaded
 export const isAnalyticsLoaded = () => {
     return isClient && !!window.gtag;
+};
+
+// Analytics Event Constants
+export const ANALYTICS_EVENTS = {
+    AUTH: {
+        LOGIN: 'login',
+        LOGOUT: 'logout',
+        LOGIN_ERROR: 'login_error',
+    },
+    SITES: {
+        ADD_SITE: 'add_site',
+        REMOVE_SITE: 'remove_site',
+        VIEW_SITE: 'view_site',
+        VIEW_PAGES: 'view_site_pages',
+    },
+    SUBSCRIPTION: {
+        START: 'start_subscription',
+        SUCCESS: 'subscription_success',
+        CANCEL: 'subscription_cancel',
+        ERROR: 'subscription_error',
+    },
+    INDEXING: {
+        AUTO_INDEX_ENABLE: 'auto_index_enable',
+        AUTO_INDEX_DISABLE: 'auto_index_disable',
+        MANUAL_INDEX: 'manual_index',
+    }
 }; 

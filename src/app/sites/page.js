@@ -1,6 +1,6 @@
 'use client';
 
-import { event } from '@/utils/analytics';
+import { ANALYTICS_EVENTS, event } from '@/utils/analytics';
 import { formatDomain, getFullUrl } from '@/utils/formatDomain';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -34,6 +34,32 @@ export default function Sites() {
             });
         }
     }, [sites]);
+
+    const handleAddSite = async (siteUrl) => {
+        try {
+            // ... existing add site code
+            event({
+                action: ANALYTICS_EVENTS.SITES.ADD_SITE,
+                category: 'Sites',
+                label: siteUrl
+            });
+        } catch (error) {
+            console.error('Error adding site:', error);
+        }
+    };
+
+    const handleRemoveSite = async (siteUrl) => {
+        try {
+            // ... existing remove site code
+            event({
+                action: ANALYTICS_EVENTS.SITES.REMOVE_SITE,
+                category: 'Sites',
+                label: siteUrl
+            });
+        } catch (error) {
+            console.error('Error removing site:', error);
+        }
+    };
 
     if (loading) return <div className={styles.loading}>Loading sites...</div>;
     if (error) return <div className={styles.error}>{error}</div>;
