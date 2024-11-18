@@ -115,4 +115,72 @@ export async function toggleDomainAutoindexing(userId, domain, enabled) {
         console.error('Error toggling domain autoindexing:', error);
         throw error;
     }
+}
+
+export async function createDomainSubscription(userId, domainName, subscriptionId, lemonSqueezyCustomerId) {
+    try {
+        const { data, error } = await supabase
+            .schema('smoothindex')
+            .from('domain_subscriptions')
+            .insert({
+                user_id: userId,
+                domain_name: domainName,
+                subscription_id: subscriptionId,
+                lemon_squeezy_customer_id: lemonSqueezyCustomerId,
+                status: 'active'
+            })
+            .select()
+            .single();
+
+        if (error) throw error;
+        return data;
+    } catch (error) {
+        console.error('Error creating domain subscription:', error);
+        throw error;
+    }
+}
+
+export async function updateSubscriptionStatus(subscriptionId, status) {
+    try {
+        const { data, error } = await supabase
+            .schema('smoothindex')
+            .from('domain_subscriptions')
+            .update({
+                status,
+                updated_at: new Date().toISOString()
+            })
+            .eq('subscription_id', subscriptionId)
+            .select()
+            .single();
+
+        if (error) throw error;
+        return data;
+    } catch (error) {
+        console.error('Error updating subscription status:', error);
+        throw error;
+    }
+}
+
+export async function getDomainSubscription(domainName) {
+    try {
+        const { data, error } = await supabase
+            .schema('smoothindex')
+            .from('domain_subscriptions')
+            .select('*')
+            .eq('domain_name', domainName);
+
+        // If no subscription found, return null instead of throwing error
+        if (error) {
+            if (error.code === 'PGRST116') {
+                return null;
+            }
+            throw error;
+        }
+
+        // Return the first subscription if exists, null otherwise
+        return data && data.length > 0 ? data[0] : null;
+    } catch (error) {
+        console.error('Error getting domain subscription:', error);
+        throw error;
+    }
 } 

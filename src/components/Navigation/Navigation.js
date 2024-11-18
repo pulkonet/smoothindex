@@ -45,8 +45,10 @@ export default function Navigation() {
 
     const handleLogout = async () => {
         try {
-            await fetch('/api/auth/logout', { method: 'POST' });
-            document.cookie = 'user_profile=; max-age=0; path=/;';
+            await fetch('/api/auth/logout', {
+                method: 'POST',
+                credentials: 'include'
+            });
             router.push('/');
             window.location.reload();
         } catch (error) {

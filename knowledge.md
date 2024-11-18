@@ -36,6 +36,9 @@
    - `src/app/api/sites/[siteUrl]/analytics/route.js` - Site analytics endpoint
    - `src/app/api/sites/[siteUrl]/pages/route.js` - Crawled pages endpoint
 
+3. Subscriptions
+   - `src/app/api/subscriptions/status/route.js` - Endpoint to check subscription status
+
 ## Utilities
 - `src/utils/formatDomain.js` - Domain formatting utilities
 
@@ -58,6 +61,7 @@
   - `src/components/Footer/Footer.js`
   - `src/components/Pricing/Pricing.js`
   - `src/components/Testimonials/Testimonials.js`
+  - `src/components/AutoIndexButton/AutoIndexButton.js`
 - Hooks:
   - `src/hooks/useAuth.js`
 
@@ -65,3 +69,15 @@
 - `src/db/schema.sql` - Supabase database schema definitions
 - `src/utils/db.js` - Database utility functions for user and site management
 - `src/utils/supabase.js` - Supabase client configuration
+
+## Subscription Related Files
+- src/utils/lemonsqueezy.js - LemonSqueezy API integration utilities
+- src/app/api/subscriptions/create/route.js - Endpoint to create new subscriptions
+- src/app/api/webhooks/lemonsqueezy/route.js - Webhook handler for LemonSqueezy events
+- src/app/api/subscriptions/status/route.js - Endpoint to check subscription status
+
+## Authentication
+- src/utils/auth.js - Google authentication utilities
+
+## Database Tables
+- domain_subscriptions - Stores subscription information for domain auto-indexing

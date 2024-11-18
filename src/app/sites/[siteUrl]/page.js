@@ -1,5 +1,6 @@
 'use client';
 
+import AutoIndexButton from '@/components/AutoIndexButton/AutoIndexButton';
 import { formatDomain, getFullUrl } from '@/utils/formatDomain';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -26,17 +27,24 @@ export default function SiteOverview() {
     const [siteData, setSiteData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isSubscribed, setIsSubscribed] = useState(false);
     const decodedSiteUrl = decodeURIComponent(params.siteUrl);
 
     useEffect(() => {
-        const fetchSiteData = async () => {
+        const fetchData = async () => {
             try {
-                const response = await fetch(`/api/sites/${params.siteUrl}/overview`);
-                const data = await response.json();
+                // Fetch site data
+                const siteResponse = await fetch(`/api/sites/${params.siteUrl}/overview`);
+                const siteData = await siteResponse.json();
 
-                if (!response.ok) throw new Error(data.error || 'Failed to fetch site data');
+                if (!siteResponse.ok) throw new Error(siteData.error || 'Failed to fetch site data');
 
-                setSiteData(data);
+                // Fetch subscription status
+                const subscriptionResponse = await fetch(`/api/subscriptions/status?domain=${params.siteUrl}`);
+                const subscriptionData = await subscriptionResponse.json();
+
+                setIsSubscribed(subscriptionData.isSubscribed);
+                setSiteData(siteData);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -44,7 +52,7 @@ export default function SiteOverview() {
             }
         };
 
-        fetchSiteData();
+        fetchData();
     }, [params.siteUrl]);
 
     if (loading) {
@@ -63,37 +71,48 @@ export default function SiteOverview() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.header}>
-                <h1 className={styles.title}>
-                    {formatDomain(decodedSiteUrl)}
-                </h1>
-                <Link
-                    href={`/sites/${params.siteUrl}/pages`}
-                    className={styles.pagesButton}
-                >
-                    View All Pages
-                </Link>
-                <a
-                    href={getFullUrl(decodedSiteUrl)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.visitSite}
-                >
-                    Visit Site
-                    <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        className={styles.externalIcon}
-                    >
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                    </svg>
-                </a>
+            <div className={styles.headerSection}>
+                <div className={styles.titleRow}>
+                    <h1 className={styles.title}>
+                        {formatDomain(decodedSiteUrl)}
+                    </h1>
+                    <div className={styles.headerButtons}>
+                        <Link
+                            href={`/sites/${params.siteUrl}/pages`}
+                            className={styles.pagesButton}
+                        >
+                            View All Pages
+                        </Link>
+                        <a
+                            href={getFullUrl(decodedSiteUrl)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.visitSite}
+                        >
+                            Visit Site
+                            <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                className={styles.externalIcon}
+                            >
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                <polyline points="15 3 21 3 21 9" />
+                                <line x1="10" y1="14" x2="21" y2="3" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div className={styles.autoIndexSection}>
+                    <AutoIndexButton
+                        domain={decodedSiteUrl}
+                        isSubscribed={isSubscribed}
+                    />
+                </div>
             </div>
 
             <div className={styles.statsGrid}>
@@ -121,7 +140,6 @@ export default function SiteOverview() {
             </div>
 
             <div className={styles.chartsGrid}>
-                {/* Indexing Trend Chart */}
                 <div className={styles.chartCard}>
                     <h2>Indexing Trend (Last 30 Days)</h2>
                     <div className={styles.chartContainer}>
@@ -143,7 +161,6 @@ export default function SiteOverview() {
                     </div>
                 </div>
 
-                {/* Crawl Performance Chart */}
                 <div className={styles.chartCard}>
                     <h2>Crawl Performance</h2>
                     <div className={styles.chartContainer}>
@@ -159,7 +176,6 @@ export default function SiteOverview() {
                     </div>
                 </div>
 
-                {/* Page Status Distribution */}
                 <div className={styles.chartCard}>
                     <h2>Page Status Distribution</h2>
                     <div className={styles.chartContainer}>

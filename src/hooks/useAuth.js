@@ -8,22 +8,35 @@ export function useAuth() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Check for user profile cookie
-        const profileCookie = document.cookie
-            .split('; ')
-            .find(row => row.startsWith('user_profile='));
-
-        if (profileCookie) {
+        const checkAuth = async () => {
             try {
-                const profile = JSON.parse(decodeURIComponent(profileCookie.split('=')[1]));
-                setUserProfile(profile);
-                setIsAuthenticated(true);
+                const response = await fetch('/api/auth/session', {
+                    credentials: 'include'
+                });
+                const data = await response.json();
+
+                if (data.user) {
+                    setIsAuthenticated(true);
+                    setUserProfile(data.user);
+                } else {
+                    setIsAuthenticated(false);
+                    setUserProfile(null);
+                }
             } catch (error) {
-                console.error('Error parsing user profile:', error);
+                console.error('Auth check failed:', error);
+                setIsAuthenticated(false);
+                setUserProfile(null);
+            } finally {
+                setLoading(false);
             }
-        }
-        setLoading(false);
+        };
+
+        checkAuth();
     }, []);
 
-    return { isAuthenticated, userProfile, loading };
+    return {
+        isAuthenticated,
+        userProfile,
+        loading
+    };
 } 

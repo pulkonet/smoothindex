@@ -1,12 +1,11 @@
 import { cookies } from 'next/headers';
-import { NextResponse } from 'next/server';
-
-export const runtime = 'nodejs';
 
 export async function POST() {
-    cookies().delete('google_access_token');
-    cookies().delete('google_refresh_token');
-    cookies().delete('user_profile');
+    const cookieStore = cookies();
+    cookieStore.delete('session');
 
-    return NextResponse.json({ success: true });
+    return new Response(JSON.stringify({ success: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+    });
 } 

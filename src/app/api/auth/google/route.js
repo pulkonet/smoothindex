@@ -1,91 +1,66 @@
-import { event } from '@/utils/analytics';
 import { upsertUser } from '@/utils/db';
-import { google } from 'googleapis';
 import { cookies } from 'next/headers';
-import { NextResponse } from 'next/server';
-
-export const runtime = 'nodejs';
-
-const oauth2Client = new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET,
-    process.env.GOOGLE_REDIRECT_URI
-);
-
-const SCOPES = [
-    'https://www.googleapis.com/auth/webmasters.readonly',
-    'https://www.googleapis.com/auth/userinfo.email',
-    'https://www.googleapis.com/auth/userinfo.profile'
-];
 
 export async function GET(request) {
     const searchParams = request.nextUrl.searchParams;
     const code = searchParams.get('code');
 
     if (!code) {
-        const authUrl = oauth2Client.generateAuthUrl({
-            access_type: 'offline',
-            scope: SCOPES,
-            prompt: 'consent'
-        });
-        return NextResponse.json({ url: authUrl });
+        // Redirect to Google OAuth
+        const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=${process.env.GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile`;
+        return Response.redirect(authUrl);
     }
 
     try {
-        const { tokens } = await oauth2Client.getToken(code);
-        oauth2Client.setCredentials(tokens);
-
-        const oauth2 = google.oauth2('v2');
-        const userInfo = await oauth2.userinfo.get({ auth: oauth2Client });
-
-        // Store user data in database with Google ID
-        await upsertUser({
-            googleId: userInfo.data.id,
-            email: userInfo.data.email,
-            name: userInfo.data.name,
-            picture: userInfo.data.picture
+        // Exchange code for tokens
+        const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                code,
+                client_id: process.env.GOOGLE_CLIENT_ID,
+                client_secret: process.env.GOOGLE_CLIENT_SECRET,
+                redirect_uri: process.env.GOOGLE_REDIRECT_URI,
+                grant_type: 'authorization_code',
+            }),
         });
 
-        // Set cookies
-        cookies().set('google_access_token', tokens.access_token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: 60 * 60 * 24 * 7
+        const { access_token } = await tokenResponse.json();
+
+        // Get user info from Google
+        const userResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+            headers: { Authorization: `Bearer ${access_token}` },
         });
 
-        if (tokens.refresh_token) {
-            cookies().set('google_refresh_token', tokens.refresh_token, {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
-                maxAge: 60 * 60 * 24 * 30
-            });
-        }
+        const userData = await userResponse.json();
 
-        const userProfile = {
-            email: userInfo.data.email,
-            name: userInfo.data.name,
-            picture: userInfo.data.picture
+        // Upsert user in database
+        const user = await upsertUser({
+            email: userData.email,
+            name: userData.name,
+            picture: userData.picture,
+            googleId: userData.id,
+        });
+
+        // Set session cookie
+        const sessionData = {
+            email: user.email,
+            name: user.name,
+            picture: user.profile_picture,
+            userId: user.id,
+            googleId: user.google_id
         };
 
-        cookies().set('user_profile', JSON.stringify(userProfile), {
-            httpOnly: false,
+        cookies().set('session', JSON.stringify(sessionData), {
+            httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            maxAge: 60 * 60 * 24 * 7
+            sameSite: 'lax',
+            maxAge: 60 * 60 * 24 * 7, // 1 week
         });
 
-        if (process.env.NODE_ENV === 'production') {
-            // Track successful sign-in
-            event({
-                action: 'login',
-                category: 'Authentication',
-                label: 'Google Sign In',
-                value: 1
-            });
-        }
-
-        return NextResponse.redirect(new URL('/dashboard', request.url));
+        return Response.redirect('/dashboard');
     } catch (error) {
-        console.error('Error:', error);
-        return NextResponse.redirect(new URL('/?error=auth_failed', request.url));
+        console.error('Auth error:', error);
+        return Response.redirect('/login?error=auth_failed');
     }
 } 
