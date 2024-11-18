@@ -21,6 +21,8 @@
 3. Analytics
    - `src/app/analytics/page.js` - Analytics overview page
    - `src/app/analytics/analytics.module.css` - Analytics styles
+   - `src/utils/analytics.js` - Google Analytics utility functions
+   - `src/components/AnalyticsProvider/AnalyticsProvider.js` - Analytics Provider component
 
 ## API Routes
 1. Authentication

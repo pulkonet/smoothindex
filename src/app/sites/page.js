@@ -1,5 +1,6 @@
 'use client';
 
+import { event } from '@/utils/analytics';
 import { formatDomain, getFullUrl } from '@/utils/formatDomain';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -22,6 +23,17 @@ export default function Sites() {
                 setLoading(false);
             });
     }, []);
+
+    useEffect(() => {
+        if (sites.length > 0 && process.env.NODE_ENV === 'production') {
+            event({
+                action: 'view_sites',
+                category: 'Sites',
+                label: 'Sites Loaded',
+                value: sites.length
+            });
+        }
+    }, [sites]);
 
     if (loading) return <div className={styles.loading}>Loading sites...</div>;
     if (error) return <div className={styles.error}>{error}</div>;

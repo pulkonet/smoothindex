@@ -1,3 +1,4 @@
+import AnalyticsProvider from '@/components/AnalyticsProvider/AnalyticsProvider';
 import Footer from '@/components/Footer/Footer';
 import Navigation from '@/components/Navigation/Navigation';
 import { ThemeProvider } from '@/components/ThemeProvider/ThemeProvider';
@@ -22,15 +23,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={bricolage.variable}>
       <body className={bricolage.className}>
-        <ThemeProvider>
-          <div className={styles.layout}>
-            <Navigation />
-            <main className={styles.main}>
-              {children}
-            </main>
-            <Footer />
-          </div>
-        </ThemeProvider>
+        <AnalyticsProvider>
+          <ThemeProvider>
+            <div className={styles.layout}>
+              <Navigation />
+              <main className={styles.main}>
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </ThemeProvider>
+        </AnalyticsProvider>
       </body>
     </html>
   );

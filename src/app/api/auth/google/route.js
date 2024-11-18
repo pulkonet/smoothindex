@@ -1,3 +1,4 @@
+import { event } from '@/utils/analytics';
 import { upsertUser } from '@/utils/db';
 import { google } from 'googleapis';
 import { cookies } from 'next/headers';
@@ -71,6 +72,16 @@ export async function GET(request) {
             secure: process.env.NODE_ENV === 'production',
             maxAge: 60 * 60 * 24 * 7
         });
+
+        if (process.env.NODE_ENV === 'production') {
+            // Track successful sign-in
+            event({
+                action: 'login',
+                category: 'Authentication',
+                label: 'Google Sign In',
+                value: 1
+            });
+        }
 
         return NextResponse.redirect(new URL('/dashboard', request.url));
     } catch (error) {
