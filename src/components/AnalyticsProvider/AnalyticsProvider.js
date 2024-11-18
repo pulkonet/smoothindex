@@ -3,9 +3,9 @@
 import { GA_TRACKING_ID, initGA, pageview } from '@/utils/analytics';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
-export default function AnalyticsProvider({ children }) {
+function AnalyticsContent({ children }) {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
@@ -46,4 +46,12 @@ export default function AnalyticsProvider({ children }) {
             {children}
         </>
     );
-} 
+}
+
+export default function AnalyticsProvider({ children }) {
+    return (
+        <Suspense fallback={null}>
+            <AnalyticsContent>{children}</AnalyticsContent>
+        </Suspense>
+    );
+}
