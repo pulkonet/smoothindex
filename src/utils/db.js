@@ -1,16 +1,20 @@
 import { supabase } from './supabase';
 
-export async function upsertUser({ email, name, picture, googleId }) {
+export async function upsertUser(user) {
+    if (!user || !user.googleId || !user.email) {
+        throw new Error('Invalid user data');
+    }
+
     try {
         const { data, error } = await supabase
             .schema('smoothindex')
             .from('users')
             .upsert(
                 {
-                    google_id: googleId,
-                    email,
-                    name,
-                    profile_picture: picture,
+                    google_id: user.googleId,
+                    email: user.email,
+                    name: user.name,
+                    profile_picture: user.picture,
                 },
                 {
                     onConflict: 'google_id',
@@ -18,8 +22,9 @@ export async function upsertUser({ email, name, picture, googleId }) {
                 }
             );
 
+        console.info({ data, error });
         if (error) throw error;
-        return data[0];
+        return;
     } catch (error) {
         console.error('Error upserting user:', error);
         throw error;

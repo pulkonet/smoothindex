@@ -38,6 +38,10 @@ export async function GET(request) {
         const oauth2 = google.oauth2('v2');
         const userInfo = await oauth2.userinfo.get({ auth: oauth2Client });
 
+        if (!userInfo.data || !userInfo.data.id || !userInfo.data.email) {
+            throw new Error('Invalid user info received from Google');
+        }
+
         // Store user data in database with Google ID
         await upsertUser({
             googleId: userInfo.data.id,
