@@ -1,9 +1,10 @@
 'use client';
 
+import LoadingSpinner from '@/components/LoadingSpinner';
 import PageStatsGraph from '@/components/PageStatsGraph';
 import { formatDomain, getFullUrl } from '@/utils/formatDomain';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import styles from './siteOverview.module.css';
 
 const cleanUrl = (url) => {
@@ -11,7 +12,7 @@ const cleanUrl = (url) => {
     return url.replace(/^sc-domain:/, '');
 }
 
-export default function SiteOverview({ params }) {
+function SiteOverviewContent({ params }) {
     const { siteUrl } = params;
     const [siteData, setSiteData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -115,5 +116,13 @@ export default function SiteOverview({ params }) {
             {renderStatsGrid()}
             {renderStatsSection()}
         </div>
+    );
+}
+
+export default function SiteOverview({ params }) {
+    return (
+        <Suspense fallback={<LoadingSpinner />}>
+            <SiteOverviewContent params={params} />
+        </Suspense>
     );
 } 

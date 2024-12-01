@@ -1,5 +1,6 @@
 'use client';
 
+import LoadingSpinner from '@/components/LoadingSpinner';
 import { formatDomain, getFullUrl } from '@/utils/formatDomain';
 import {
     createColumnHelper,
@@ -9,10 +10,10 @@ import {
     useReactTable,
 } from '@tanstack/react-table';
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import styles from './dashboard.module.css';
 
-export default function Dashboard() {
+function DashboardContent() {
     const [sites, setSites] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -180,5 +181,13 @@ export default function Dashboard() {
                 </div>
             ))} */}
         </div>
+    );
+}
+
+export default function Dashboard() {
+    return (
+        <Suspense fallback={<LoadingSpinner />}>
+            <DashboardContent />
+        </Suspense>
     );
 } 
