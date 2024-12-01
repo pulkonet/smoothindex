@@ -30,13 +30,15 @@ export async function GET(request, { params }) {
 
         const siteUrlOg = getOriginalSiteUrl(siteUrl);
 
+        console.info('dev: ', siteUrlOg);
+
         // Get the date range for analytics
         const endDate = new Date();
         const startDate = new Date();
         startDate.setDate(startDate.getDate() - 90);
 
         // Fetch search analytics data for different dimensions
-        const [pageData, dateData] = await Promise.all([
+        const [pageData, dateData, sitemapData] = await Promise.all([
             webmasters.searchanalytics.query({
                 auth: oauth2Client,
                 siteUrl: siteUrlOg,
@@ -56,7 +58,16 @@ export async function GET(request, { params }) {
                     dimensions: ['date'],
                     rowLimit: 90
                 },
-            })
+            }),
+            // Get sitemap data to find known but unindexed pages
+            // webmasters.sitemaps.list({
+            //     auth: oauth2Client,
+            //     siteUrl: siteUrlOg,
+            // }).then(sitemapResponse => {
+            //     const latestSitemap = sitemapResponse.data.sitemap?.[0];
+            //     return latestSitemap;
+            // })
+            null
         ]);
 
         // Calculate daily trends for the last 30 days
@@ -92,6 +103,7 @@ export async function GET(request, { params }) {
             },
             indexingTrend,
             crawlPerformance,
+            sitemapData
         });
 
     } catch (error) {

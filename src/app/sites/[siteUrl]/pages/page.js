@@ -39,8 +39,6 @@ export default function CrawledPages() {
     if (loading) return <div className={styles.loading}>Loading pages...</div>;
     if (error) return <div className={styles.error}>{error}</div>;
 
-    console.info({ pages });
-
     return (
         <div className={styles.container}>
             <div className={styles.header}>

@@ -123,54 +123,62 @@ export default function Dashboard() {
     }
 
     return (
-        <div className={styles.container}>
-            <h1>Your Search Console Sites</h1>
-            <div className={styles.tableContainer}>
-                <table className={styles.table}>
-                    <thead>
-                        {table.getHeaderGroups().map(headerGroup => (
-                            <tr key={headerGroup.id}>
-                                {headerGroup.headers.map(header => (
-                                    <th
-                                        key={header.id}
-                                        onClick={header.column.getToggleSortingHandler()}
-                                        className={styles.th}
-                                    >
-                                        <div className={styles.thContent}>
+        <div>
+            <div className={styles.container}>
+                <h1>Your Search Console Sites</h1>
+                <div className={styles.tableContainer}>
+                    <table className={styles.table}>
+                        <thead>
+                            {table.getHeaderGroups().map(headerGroup => (
+                                <tr key={headerGroup.id}>
+                                    {headerGroup.headers.map(header => (
+                                        <th
+                                            key={header.id}
+                                            onClick={header.column.getToggleSortingHandler()}
+                                            className={styles.th}
+                                        >
+                                            <div className={styles.thContent}>
+                                                {flexRender(
+                                                    header.column.columnDef.header,
+                                                    header.getContext()
+                                                )}
+                                                {header.column.getCanSort() && (
+                                                    <span className={styles.sortIcon}>
+                                                        {{
+                                                            asc: ' 🔼',
+                                                            desc: ' 🔽',
+                                                        }[header.column.getIsSorted()] ?? ' ⏺️'}
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </th>
+                                    ))}
+                                </tr>
+                            ))}
+                        </thead>
+                        <tbody>
+                            {table.getRowModel().rows.map(row => (
+                                <tr key={row.id}>
+                                    {row.getVisibleCells().map(cell => (
+                                        <td key={cell.id} className={styles.td}>
                                             {flexRender(
-                                                header.column.columnDef.header,
-                                                header.getContext()
+                                                cell.column.columnDef.cell,
+                                                cell.getContext()
                                             )}
-                                            {header.column.getCanSort() && (
-                                                <span className={styles.sortIcon}>
-                                                    {{
-                                                        asc: ' 🔼',
-                                                        desc: ' 🔽',
-                                                    }[header.column.getIsSorted()] ?? ' ⏺️'}
-                                                </span>
-                                            )}
-                                        </div>
-                                    </th>
-                                ))}
-                            </tr>
-                        ))}
-                    </thead>
-                    <tbody>
-                        {table.getRowModel().rows.map(row => (
-                            <tr key={row.id}>
-                                {row.getVisibleCells().map(cell => (
-                                    <td key={cell.id} className={styles.td}>
-                                        {flexRender(
-                                            cell.column.columnDef.cell,
-                                            cell.getContext()
-                                        )}
-                                    </td>
-                                ))}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
+            {/* {sites.map(site => (
+                <div key={site.siteUrl}>
+                    <h2>{site.siteUrl}</h2>
+                    <PageStatsGraph siteUrl={site.siteUrl} />
+                </div>
+            ))} */}
         </div>
     );
 } 

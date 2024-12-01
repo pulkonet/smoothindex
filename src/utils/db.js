@@ -21,8 +21,6 @@ export async function upsertUser(user) {
                     returning: true,
                 }
             );
-
-        console.info({ data, error });
         if (error) throw error;
         return;
     } catch (error) {

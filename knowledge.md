@@ -38,6 +38,8 @@
 
 ## Utilities
 - `src/utils/formatDomain.js` - Domain formatting utilities
+- `src/utils/google.js` - Google authentication and API utilities
+- `src/utils/SitemapParser.js` - Utility class for parsing and analyzing XML sitemaps
 
 ## Configuration Files
 - `.eslintrc.json` - ESLint configuration
